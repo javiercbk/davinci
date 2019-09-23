@@ -1,0 +1,22 @@
+FROM node:10.6.0-alpine
+WORKDIR /usr/src/davinci
+RUN apk update
+RUN apk add python g++ make netcat-openbsd
+# use changes to package.json to force Docker not to use the cache
+# when we change our application's nodejs dependencies:
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install --only=production
+RUN mkdir -p /usr/src/davinci && cp -a /tmp/node_modules /usr/src/davinci/
+RUN cp /tmp/package.json /usr/src/davinci
+ADD ./app /usr/src/davinci/app
+RUN npm rebuild bcrypt --build-from-source
+# Executor machine with no c++ compiler, just node
+FROM node:10.6.0-alpine
+WORKDIR /usr/src/davinci
+RUN apk update
+RUN apk --no-cache add ca-certificates
+COPY --from=0 /usr/src/davinci /usr/src/davinci
+COPY ./docker/backend/docker-server-prod-entrypoint.sh /usr/src/davinci/docker-server-entrypoint.sh
+RUN cp docker-server-entrypoint.sh /usr/local/bin/ && \
+  chmod +x /usr/local/bin/docker-server-entrypoint.sh
+ENTRYPOINT [ "/usr/local/bin/docker-server-entrypoint.sh" ]

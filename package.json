@@ -1,0 +1,50 @@
+{
+  "name": "davinci",
+  "version": "1.0.0",
+  "description": "Anthropometry backend",
+  "main": "app/server.js",
+  "scripts": {
+    "coverage": "./node_modules/.bin/jest --coverage",
+    "debug": "node --inspect=0.0.0.0:9229 app/server.js",
+    "debug-break": "node --inspect=0.0.0.0:9229 --inspect-brk app/server.js",
+    "start": "node app/server.js",
+    "test": "./node_modules/.bin/jest"
+  },
+  "author": "Javier Lecuona",
+  "license": "ISC",
+  "dependencies": {
+    "@casl/ability": "^3.0.1",
+    "@casl/mongoose": "^2.3.1",
+    "@google-cloud/logging-bunyan": "^0.9.5",
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.4",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "bunyan": "^1.8.12",
+    "connect-mongo": "^2.0.3",
+    "cookie-parser": "^1.4.4",
+    "csurf": "^1.9.0",
+    "express": "^4.16.4",
+    "express-request-id": "^1.4.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "getenv": "^0.7.0",
+    "helmet": "^3.15.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
+    "mongoose": "^5.4.13",
+    "mongoose-delete": "^0.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-html": "^5.0.3",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.3.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^24.1.0",
+    "naive-mongo": "^3.0.7",
+    "prettier-eslint": "^8.8.2"
+  }
+}

@@ -1,0 +1,44 @@
+svg text {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.graph .grid {
+  stroke: #ccc;
+  stroke-dasharray: 0;
+  stroke-width: 1;
+}
+
+.labels {
+  font-size: 13px;
+}
+
+.label-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  fill: black;
+}
+
+.data {
+  stroke-width: 1;
+}
+
+.grid {
+  animation: dash 1s linear forwards;
+}
+
+.grid line.origin {
+  stroke: #000000;
+}
+
+.grid line:not(.origin) {
+  stroke: #cccccc;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+

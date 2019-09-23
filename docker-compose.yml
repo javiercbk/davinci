@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  mongodb:
+    build: ./docker/mongodb
+    volumes:
+      - './docker/mongodb/data-4.0:/data/db'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=davinci_root_dev
+      - MONGO_INITDB_ROOT_PASSWORD=davinci_root_pass_dev
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - "27017:27017"
+  davinci:
+    build: ./
+    volumes:
+      - ./app:/usr/src/davinci/app
+    depends_on:
+      - mongodb
+    environment:
+      - NODE_ENV=development
+      - NODE_INSPECT_BRK=false
+      - DAVINCI_PORT=3443
+      - DAVINCI_SECRET=davinci_secret
+      - DAVINCI_VERSION=0.0.1
+      - DAVINCI_AUTH_COOKIE=dvauth
+      - DAVINCI_RECAPTCHA_SECRET=recaptcha-secret
+      - DAVINCI_DB_USERNAME=davinci
+      - DAVINCI_DB_PASSWORD=davinci
+      - DAVINCI_DB_NAME=davinci
+      - DAVINCI_DB_URL=mongodb://mongodb:27017
+    ports:
+      - "3443:3443"
+      - "9229:9229"
+  frontend:
+    build: ./frontend
+    user: node
+    working_dir: /home/node
+    environment:
+      - FE_TARGET=http://davinci:3443
+    volumes:
+      - ./frontend/src:/home/node/src
+      - ./frontend/public:/home/node/public
+    links:
+      - davinci:davinci
+    ports:
+      - "8080:8080"
+    command: npm run serve

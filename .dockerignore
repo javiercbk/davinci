@@ -1,0 +1,11 @@
+.vscode
+*.log
+.git
+.gitignore
+.DS_Store
+node_modules
+npm-debug.log
+test
+k8s
+frontend
+coverage

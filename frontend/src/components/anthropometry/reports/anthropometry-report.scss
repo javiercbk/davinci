@@ -1,0 +1,15 @@
+@import "../../../colors.scss";
+
+.measurement-group-row:not(:last-child) {
+  border-bottom: 1px solid $hr-color;
+}
+
+.ecto {
+  color: #109618;
+}
+.meso {
+  color: #3366cc;
+}
+.endo {
+  color: #ff9900;
+}
